@@ -64,15 +64,12 @@ def get_counts(ids, board):
 
     return counts
 
-def main():
+if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == 'config':
         config(sys.stdout)
         sys.exit(0)
         pass
-    return
-
-if __name__ == '__main__':
-    unittest.main()
+    pass
 
 # Todo:
 # add cooldown
