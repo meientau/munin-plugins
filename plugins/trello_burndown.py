@@ -7,9 +7,10 @@
 # will count all cards in those lists and create a stacked
 # area graph accordingly.
 
-import urllib2
 import os
 import sys
+import urllib2
+import json
 
 count_lists_names_colours = [
     ('todo', 2),
@@ -47,6 +48,12 @@ def get_dict_extract(prefix, given_dict):
     return dict((key.split(prefix)[1], value)
                 for key, value in given_dict.iteritems()
                 if key.startswith(prefix))
+
+def get_list_id_dict(board):
+    return dict( (l['id'], counter_name)
+                 for l in board['lists']
+                 for counter_name, _ in count_lists_names_colours
+                 if counter_name in l['name'].lower() and not l['closed'] )
 
 def main():
     if len(sys.argv) == 2 and sys.argv[1] == 'config':

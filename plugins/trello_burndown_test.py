@@ -1,11 +1,27 @@
 import unittest
 import cStringIO
+import json
 
 import trello_burndown
 
 class TrelloBurndownTest(unittest.TestCase):
+    board = '''{
+        "id": "...",
+        "name": "Burndown Test",
+        "cards": [
+           { "id": "card-id-pineapple", "closed": false,
+             "idList": "list-id-todo",
+             "name": "task pineapple" }
+        ],
+        "lists": [
+            { "id": "list-id-todo", "name": "TODO", "closed": false }
+        ]
+    }'''
+
+
     def setUp(self):
         self.out = cStringIO.StringIO()
+        self.parsed_board = json.loads(self.board)
         return
 
     def test_config_has_title(self):
@@ -38,6 +54,12 @@ class TrelloBurndownTest(unittest.TestCase):
         Use this to find out whether the raw access to trello works."""
         board = trello_burndown.get_board_url()
         self.assertTrue(board.read().startswith('{'))
+        pass
+
+    def test_find_todo_list(self):
+        ids = trello_burndown.get_list_id_dict(self.parsed_board)
+        self.assertEquals("todo",
+                          ids["list-id-todo"])
         pass
 
     pass
