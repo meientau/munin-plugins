@@ -77,6 +77,11 @@ def print_counts(counts, out):
 if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == 'config':
         config(sys.stdout)
+    else:
+        board = json.load(get_board_url())
+        ids = get_list_id_dict(board)
+        counts = get_counts(ids, board)
+        print_counts(counts, sys.stdout)
         pass
     pass
 
