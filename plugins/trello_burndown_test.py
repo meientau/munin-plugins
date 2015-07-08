@@ -9,12 +9,12 @@ class TrelloBurndownTest(unittest.TestCase):
         return
 
     def test_config_has_title(self):
-        trello_burndown.config(out)
+        trello_burndown.config(self.out)
         self.assertIn("graph_title", self.out.getvalue())
         pass
 
     def test_config_has_labels(self):
-        trello_burndown.config(out)
+        trello_burndown.config(self.out)
         for area in "todo", "doing", "done":
             self.assertIn(area + ".label", self.out.getvalue())
             continue
