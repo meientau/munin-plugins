@@ -1,6 +1,7 @@
 import unittest
 import cStringIO
 import json
+import os
 
 import trello_burndown
 
@@ -36,6 +37,7 @@ class TrelloBurndownTest(unittest.TestCase):
     def setUp(self):
         self.out = cStringIO.StringIO()
         self.parsed_board = json.loads(self.board)
+        os.environ['category'] = 'test'
         return
 
     def test_config_has_title(self):
@@ -62,9 +64,9 @@ class TrelloBurndownTest(unittest.TestCase):
     @unittest.skip("Set up the env before activating this test.")
     def test_response_is_not_empty(self):
         """This test requires some elaborate environment: export
-        trello_burndown_test_url=https://api.trello.com/1/board/...
-        trello_burndown_test_key=...
-        trello_burndown_test_token=...
+        trello_url=https://api.trello.com/1/board/...
+        trello_key=...
+        trello_token=...
         Use this to find out whether the raw access to trello works."""
         board = trello_burndown.get_board_url()
         self.assertTrue(board.read().startswith('{'))

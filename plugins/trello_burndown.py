@@ -21,7 +21,7 @@ count_lists_names_colours = [
 def config(out):
     print >> out, "graph_title Trello Burndown Chart"
     print >> out, "graph_vlabel cards"
-    print >> out, "graph_category brainlab"
+    print >> out, "graph_category", _get_category()
     print >> out, "graph_args --lower-limit 0"
 
     areaOrStack='AREA'
@@ -34,16 +34,15 @@ def config(out):
 
     return
 
+def _get_category():
+    if 'category' in os.environ:
+        return os.environ['category']
+    return 'Trello'
+
 def get_board_url():
     return urllib2.urlopen(
         '%(url)s?cards=open&lists=open&key=%(key)s&token=%(token)s'
-        % get_dict_extract(_get_env_prefix(),
-                           os.environ))
-
-def _get_env_prefix():
-    # e.g. if the script is called as 'foobar.py', we will later
-    # for 'foobar_url' in the environment.
-    return os.path.basename(sys.argv[0]).split('.')[0] + '_'
+        % get_dict_extract('trello_', os.environ))
 
 def get_dict_extract(prefix, given_dict):
     return dict((key.split(prefix)[1], value)
