@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 
+# Usage:
+#
+# Your board has lists that contain the words mentioned in
+# count_lists_names_colours below in their titles. This script
+# will count all cards in those lists and create a stacked
+# area graph accordingly.
 
 count_lists_names_colours = [
     ('todo', 2),
@@ -31,7 +37,6 @@ def main():
 
 
 # Todo:
-# describe necessary structure in trello
 # pick api key and board id from env
 # values
 # add cooldown
