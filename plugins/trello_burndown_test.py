@@ -11,10 +11,21 @@ class TrelloBurndownTest(unittest.TestCase):
         "cards": [
            { "id": "card-id-pineapple", "closed": false,
              "idList": "list-id-todo",
-             "name": "task pineapple" }
+             "name": "task pineapple" },
+           { "id": "card-id-cherry", "closed": false,
+             "idList": "list-id-done",
+             "name": "task cherry" },
+           { "id": "card-id-kiwi", "closed": false,
+             "idList": "list-id-done",
+             "name": "task kiwi" },
+           { "id": "card-id-durian", "closed": true,
+             "idList": "list-id-done",
+             "name": "task durian" }
         ],
         "lists": [
-            { "id": "list-id-todo", "name": "TODO", "closed": false }
+            { "id": "list-id-todo", "name": "TODO", "closed": false },
+            { "id": "list-id-doing", "name": "DOING", "closed": false },
+            { "id": "list-id-done", "name": "DONE", "closed": false }
         ]
     }'''
 
@@ -60,6 +71,12 @@ class TrelloBurndownTest(unittest.TestCase):
         ids = trello_burndown.get_list_id_dict(self.parsed_board)
         self.assertEquals("todo",
                           ids["list-id-todo"])
+        pass
+
+    def test_count_done_cards(self):
+        ids = { "list-id-todo": "todo", "list-id-done": "done" }
+        counts = trello_burndown.get_counts(ids, self.parsed_board)
+        self.assertEquals(2, counts["done"])
         pass
 
     pass

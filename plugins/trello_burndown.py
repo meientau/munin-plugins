@@ -52,8 +52,17 @@ def get_dict_extract(prefix, given_dict):
 def get_list_id_dict(board):
     return dict( (l['id'], counter_name)
                  for l in board['lists']
-                 for counter_name, _ in count_lists_names_colours
+                 for counter_name in dict(count_lists_names_colours).keys()
                  if counter_name in l['name'].lower() and not l['closed'] )
+
+def get_counts(ids, board):
+    counts = dict(zip(dict(count_lists_names_colours).keys(),
+                      [0] * len(count_lists_names_colours)))
+    for c in board['cards']:
+        counts[ids[c['idList']]] += c['idList'] in ids and not c['closed']
+        continue
+
+    return counts
 
 def main():
     if len(sys.argv) == 2 and sys.argv[1] == 'config':
@@ -62,7 +71,8 @@ def main():
         pass
     return
 
+if __name__ == '__main__':
+    unittest.main()
 
 # Todo:
-# values
 # add cooldown
