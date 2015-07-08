@@ -31,6 +31,7 @@ def config(out):
         print >> out, "%s.colour COLOUR%d" % (name, colour)
         areaOrStack = 'STACK'
         continue
+
     return
 
 def get_board_url():
@@ -64,10 +65,16 @@ def get_counts(ids, board):
 
     return counts
 
+def print_counts(counts, out):
+    for name, colour in count_lists_names_colours:
+        print >> out, "%s.value %d" % (name, counts[name])
+        continue
+
+    return
+
 if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == 'config':
         config(sys.stdout)
-        sys.exit(0)
         pass
     pass
 

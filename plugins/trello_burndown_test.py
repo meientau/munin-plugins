@@ -79,6 +79,13 @@ class TrelloBurndownTest(unittest.TestCase):
         self.assertEquals(2, counts["done"])
         pass
 
+    def test_print_counts(self):
+        counts = { 'todo': 1, 'done': 2, 'doing': 0 }
+        trello_burndown.print_counts(counts, self.out)
+        self.assertEquals('todo.value 1\ndoing.value 0\ndone.value 2\n',
+                          self.out.getvalue())
+        pass
+
     pass
 
 if __name__ == '__main__':
