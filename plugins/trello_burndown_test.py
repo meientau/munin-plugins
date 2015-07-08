@@ -20,6 +20,26 @@ class TrelloBurndownTest(unittest.TestCase):
             continue
         pass
 
+    def test_dict_extract(self):
+        sample = { 'prefix_fruit': 'apple',
+                   'prefix_planet': 'jupiter',
+                   'unrelated_stuff': 'foobar' }
+        expected =  { 'fruit': 'apple', 'planet': 'jupiter' }
+        actual = trello_burndown.get_dict_extract('prefix_', sample)
+        self.assertEqual(expected, actual)
+        pass
+
+    @unittest.skip("Set up the env before activating this test.")
+    def test_response_is_not_empty(self):
+        """This test requires some elaborate environment: export
+        trello_burndown_test_url=https://api.trello.com/1/board/...
+        trello_burndown_test_key=...
+        trello_burndown_test_token=...
+        Use this to find out whether the raw access to trello works."""
+        board = trello_burndown.get_board_url()
+        self.assertTrue(board.read().startswith('{'))
+        pass
+
     pass
 
 if __name__ == '__main__':
