@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 
-countListNames = [ 'todo', 'doing', 'done', ]
-colours = [ 2, 1, 0, ]
+
+count_lists_names_colours = [
+    ('todo', 2),
+    ('doing', 1),
+    ('done', 0),
+]
 
 def config(out):
     print >> out, "graph_title Trello Burndown Chart"
@@ -10,7 +14,7 @@ def config(out):
     print >> out, "graph_args --lower-limit 0"
 
     areaOrStack='AREA'
-    for name, colour in zip(countListNames, colours):
+    for name, colour in count_lists_names_colours:
         print >> out, "%s.label %s" % (name, name.capitalize())
         print >> out, "%s.draw %s" % (name, areaOrStack)
         print >> out, "%s.colour COLOUR%d" % (name, colour)
