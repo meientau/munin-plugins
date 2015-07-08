@@ -60,7 +60,9 @@ def get_counts(ids, board):
     counts = dict(zip(dict(count_lists_names_colours).keys(),
                       [0] * len(count_lists_names_colours)))
     for c in board['cards']:
-        counts[ids[c['idList']]] += c['idList'] in ids and not c['closed']
+        if c['idList'] in ids and not c['closed']:
+            counts[ids[c['idList']]] += 1
+            pass
         continue
 
     return counts

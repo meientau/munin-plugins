@@ -20,7 +20,10 @@ class TrelloBurndownTest(unittest.TestCase):
              "name": "task kiwi" },
            { "id": "card-id-durian", "closed": true,
              "idList": "list-id-done",
-             "name": "task durian" }
+             "name": "task durian" },
+           { "id": "card-id-jackfruit", "closed": false,
+             "idList": "list-id-unrelated",
+             "name": "task jackfruit" }
         ],
         "lists": [
             { "id": "list-id-todo", "name": "TODO", "closed": false },
