@@ -3,16 +3,24 @@
 # Usage:
 #
 # Your board has lists that contain the words mentioned in
-# count_lists_names_colours below in their titles. This script
-# will count all cards in those lists and create a stacked
-# area graph accordingly.
+# names_colours below in their titles. This script will count all
+# cards in those lists and create a stacked area graph accordingly.
+#
+# Add this to your munin-node configuration:
+#
+# [trello_burndown]
+# env.category My Team Name
+# env.trello_url https://api.trello.com/1/board/...
+# env.trello_key ...
+# env.trello_token ...
+
 
 import os
 import sys
 import urllib2
 import json
 
-count_lists_names_colours = [
+names_colours = [
     ('todo', 2),
     ('doing', 1),
     ('done', 0),
@@ -25,7 +33,7 @@ def config(out):
     print >> out, "graph_args --lower-limit 0"
 
     areaOrStack='AREA'
-    for name, colour in count_lists_names_colours:
+    for name, colour in names_colours:
         print >> out, "%s.label %s" % (name, name.capitalize())
         print >> out, "%s.draw %s" % (name, areaOrStack)
         print >> out, "%s.colour COLOUR%d" % (name, colour)
@@ -52,12 +60,12 @@ def get_dict_extract(prefix, given_dict):
 def get_list_id_dict(board):
     return dict( (l['id'], counter_name)
                  for l in board['lists']
-                 for counter_name in dict(count_lists_names_colours).keys()
+                 for counter_name in dict(names_colours).keys()
                  if counter_name in l['name'].lower() and not l['closed'] )
 
 def get_counts(ids, board):
-    counts = dict(zip(dict(count_lists_names_colours).keys(),
-                      [0] * len(count_lists_names_colours)))
+    counts = dict(zip(dict(names_colours).keys(),
+                      [0] * len(names_colours)))
     for c in board['cards']:
         if c['idList'] in ids and not c['closed']:
             counts[ids[c['idList']]] += 1
@@ -67,7 +75,7 @@ def get_counts(ids, board):
     return counts
 
 def print_counts(counts, out):
-    for name, colour in count_lists_names_colours:
+    for name, colour in names_colours:
         print >> out, "%s.value %d" % (name, counts[name])
         continue
 
