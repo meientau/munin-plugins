@@ -48,6 +48,12 @@ def _get_category():
     return 'Trello'
 
 def get_board_url():
+    try:
+        proxy = urllib2.ProxyHandler({'https': os.environ['http_proxy']})
+        opener = urllib2.build_opener(proxy)
+        urllib2.install_opener(opener)
+    except KeyError:
+        pass
     return urllib2.urlopen(
         '%(url)s?cards=open&lists=open&key=%(key)s&token=%(token)s'
         % get_dict_extract('trello_', os.environ))
