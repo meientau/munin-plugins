@@ -100,8 +100,3 @@ if __name__ == '__main__':
 
 # Todo:
 # add cooldown area
-
-# Where's a good place for board maintenance? e.g.
-# - add sprint scope graph to board
-# - tag cards with prefixes
-# - calculate time-in-doing
