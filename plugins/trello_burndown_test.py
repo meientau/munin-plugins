@@ -24,12 +24,16 @@ class TrelloBurndownTest(unittest.TestCase):
              "name": "task durian" },
            { "id": "card-id-jackfruit", "closed": false,
              "idList": "list-id-unrelated",
-             "name": "task jackfruit" }
+             "name": "task jackfruit" },
+           { "id": "card-id-lemon", "closed": false,
+             "idList": "list-id-cool",
+             "name": "task lemon" }
         ],
         "lists": [
             { "id": "list-id-todo", "name": "TODO", "closed": false },
             { "id": "list-id-doing", "name": "DOING", "closed": false },
-            { "id": "list-id-done", "name": "DONE", "closed": false }
+            { "id": "list-id-done", "name": "DONE", "closed": false },
+            { "id": "list-id-cool", "name": "Cooldown", "closed": false }
         ]
     }'''
 
@@ -85,9 +89,10 @@ class TrelloBurndownTest(unittest.TestCase):
         pass
 
     def test_print_counts(self):
-        counts = { 'todo': 1, 'done': 2, 'doing': 0 }
+        counts = { 'cool': 1, 'todo': 1, 'done': 2, 'doing': 0 }
         trello_burndown.print_counts(counts, self.out)
-        self.assertEquals('todo.value 1\ndoing.value 0\ndone.value 2\n',
+        self.assertEquals('cool.value 1\ntodo.value 1\n'
+                          'doing.value 0\ndone.value 2\n',
                           self.out.getvalue())
         pass
 

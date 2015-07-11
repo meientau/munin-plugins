@@ -21,6 +21,7 @@ import urllib2
 import json
 
 names_colours = [
+    ('cool', 3),
     ('todo', 2),
     ('doing', 1),
     ('done', 0),
@@ -97,6 +98,3 @@ if __name__ == '__main__':
         print_counts(counts, sys.stdout)
         pass
     pass
-
-# Todo:
-# add cooldown area
