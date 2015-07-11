@@ -33,7 +33,7 @@ class TrelloBurndownTest(unittest.TestCase):
             { "id": "list-id-todo", "name": "TODO", "closed": false },
             { "id": "list-id-doing", "name": "DOING", "closed": false },
             { "id": "list-id-done", "name": "DONE", "closed": false },
-            { "id": "list-id-cool", "name": "Cooldown", "closed": false }
+            { "id": "list-id-cool", "name": "Cool down", "closed": false }
         ]
     }'''
 
@@ -80,6 +80,12 @@ class TrelloBurndownTest(unittest.TestCase):
         ids = trello_burndown.get_list_id_dict(self.parsed_board)
         self.assertEquals("todo",
                           ids["list-id-todo"])
+        pass
+
+    def test_find_cooldown_list(self):
+        ids = trello_burndown.get_list_id_dict(self.parsed_board)
+        self.assertEquals("cool",
+                          ids["list-id-cool"])
         pass
 
     def test_count_done_cards(self):
